@@ -1,19 +1,38 @@
 <html>
-    <head>
-        <link rel="stylesheet" href="styles.css">
-    </head>
-    <body>
+  <head>
+    <!-- Always required for all services and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.5.2/firebase-app.js"></script>
+    <!-- Downloading firestore services instead of all -->
+    <script src="https://www.gstatic.com/firebasejs/7.5.2/firebase-firestore.js"></script>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <h1>Cloud Cafe</h1>
 
-        <h1>Cloud Cafe</h1>
+    <div class="content">
 
-        <div class="content">
+      <form id="add-cafe-form"></form>
 
-            <form id="add-cafe-form"></form>
+      <ul id="cafe-list"></ul>
 
-            <ul id="cafe-list"></ul>
-
-        </div>
-
-        <script src="app.js"></script>
-    </body>
+    </div>
+    
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyBve8xB_yZ7fL-dWGaAOQBFLlh4gO-BbvE",
+        authDomain: "todo-9710d.firebaseapp.com",
+        databaseURL: "https://todo-9710d.firebaseio.com",
+        projectId: "todo-9710d",
+        storageBucket: "todo-9710d.appspot.com",
+        messagingSenderId: "522331427325",
+        appId: "1:522331427325:web:dbbd16fb9d12a855884994",
+        measurementId: "G-DXT15784MV"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+    </script>
+    <script src="app.js"></script>
+  </body>
 </html>
