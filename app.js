@@ -20,7 +20,11 @@ const model = {
 ========================================== */
 const octopus = {
   setCafes() {
-    db.collection('cafes').get().then((snapshot) => {
+    db.collection('cafes')
+    // .where('city', '==', 'Faiyum')
+    // .orderBy('name')
+    .get()
+    .then((snapshot) => {
       model.cafes = snapshot.docs;
       cafeList.init();
     });
@@ -29,23 +33,23 @@ const octopus = {
     return model.cafes;
   },
   addCafe(cafe) {
-    db.collection('cafes').add({
+    db.collection('cafes')
+    .add({
       name: cafe.name,
       city: cafe.city
-    }).then(() => {
-      this.setCafes();
-    });
+    })
   },
   deleteCafe(cafeId) {
     db.collection('cafes').doc(cafeId)
-    .delete()
-    .then(() => {
-      this.setCafes();
-    })
+    .delete();
   },
   init() {
     form.init();
-    this.setCafes();
+
+    // Real-time listener
+    db.collection('cafes').onSnapshot(() => {
+      this.setCafes();
+    });
   }
 }
 
