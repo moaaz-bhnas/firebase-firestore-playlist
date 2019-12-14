@@ -7,15 +7,18 @@
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <h1>Cloud Cafe</h1>
+    <header>
+      <h1>Cloud Cafe</h1>
+    </header>
 
-    <div class="content">
+    <main class="content">
+      <form class="addCafeForm"></form>
 
-      <form id="add-cafe-form"></form>
-
-      <ul id="cafe-list"></ul>
-
-    </div>
+      <ul class="cafeList">
+        <span class="cafe__name"></span>
+        <span class="cafe__city"></span>
+      </ul>
+    </main>
     
     <script>
       // Your web app's Firebase configuration
@@ -31,7 +34,6 @@
       };
       // Initialize Firebase
       firebase.initializeApp(firebaseConfig);
-      const db = firebase.firestore();
     </script>
     <script src="app.js"></script>
   </body>
