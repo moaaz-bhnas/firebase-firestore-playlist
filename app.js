@@ -28,7 +28,23 @@ const octopus = {
   getCafes() {
     return model.cafes;
   },
+  addCafe(cafe) {
+    db.collection('cafes').add({
+      name: cafe.name,
+      city: cafe.city
+    }).then(() => {
+      this.setCafes();
+    });
+  },
+  deleteCafe(cafeId) {
+    db.collection('cafes').doc(cafeId)
+    .delete()
+    .then(() => {
+      this.setCafes();
+    })
+  },
   init() {
+    form.init();
     this.setCafes();
   }
 }
@@ -36,9 +52,20 @@ const octopus = {
 /* =======================================
   Views
 ========================================== */
+
+/* Cafe List --- */
 const cafeList = {
   init() {
     this.cafeList = document.querySelector('.cafeList');
+    this.cafeList.addEventListener('click', (event) => {
+      const { target } = event;
+      const removeBtnClicked = target.className === 'cafe__remove';
+      if (removeBtnClicked) {
+        const cafeId = target.parentElement.getAttribute('data-id');
+        octopus.deleteCafe(cafeId);
+      }
+    })
+
     cafeList.render();
   },
   createListItem(cafeId, cafeData) {
@@ -48,6 +75,7 @@ const cafeList = {
     `
       <span class="cafe__name">${cafeData.name}</span>
       <span class="cafe__city">${cafeData.city}</span>
+      <div class="cafe__remove">x</div>
     `
     return li;
   },
@@ -60,6 +88,21 @@ const cafeList = {
     })
     this.cafeList.removeAll();
     this.cafeList.appendChild(fragment);
+  }
+}
+
+/* form --- */
+const form = {
+  init() {
+    this.form = document.querySelector('.addCafeForm');
+    this.form.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const name = this.form.name.value;
+      const city = this.form.city.value;
+      octopus.addCafe({ name, city });
+      this.form.reset();
+    })
   }
 }
 
